@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html idioma="es">
+<head>
+    <meta conjunto de caracteres="UTF-8">
+    <meta nombre="viewport" contenido="width=device-width, initial-scale=1.0">
+    <title>🔒 Sistema de Descuentos por Fidelidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 22px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .resultado-box {
+            margin-top: 20px;
+            background-color: #eef9ff;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            border-radius: 4px;
+        }
+
+        .resultado-linea {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .resultado-linea.total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+            border-top: 1px solid #bdc3c7;
+            padding-top: 8px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Módulo de Descuentos por Fidelidad</h2>
+    
+    <div class="form-group">
+        <label for="montoBase">Monto Total Bruto ($):</label>
+        <input type="number" id="montoBase" placeholder="Ej. 100.00" min="0" step="0.01">
+    </div>
+
+    <div class="form-group">
+        <label for="pasarela">Seleccione Pasarela de Pago:</label>
+        <select id="pasarela">
+            <option value="wm">Cartera Móvil (WM) - Desc. $5 + 0% Comis.</option>
+            <option value="cc">Tarjeta de Crédito (CC) - Desc. $0 + 2% Comis.</option>
+        </select>
+    </div>
+
+    <button onclick="procesarPago()">Calcular Totales</button>
+
+    <div class="resultado-box">
+        <div class="resultado-linea">
+            <span>Monto Original:</span>
+            <span id="resOriginal">$0.00</span>
+        </div>
+        <div class="resultado-linea">
+            <span>Descuento Fidelidad (10%):</span>
+            <span id="resFidelidad">-$0.00</span>
+        </div>
+        <div class="resultado-linea">
+            <span>Beneficio Pasarela (Cupón):</span>
+            <span id="resCupon">-$0.00</span>
+        </div>
+        <div class="resultado-linea">
+            <span>Comisión de Procesamiento:</span>
+            <span id="resComision">+$0.00</span>
+        </div>
+        <div class="resultado-linea total">
+            <span>Valor Neto a Facturar:</span>
+            <span id="resNeto">$0.00</span>
+        </div>
+    </div>
+</div>
+
+<!-- Conexión con el archivo de lógica JavaScript -->
+<script src="PASARELAS DE PAGO.JS"></script>
+</body>
+</html>
