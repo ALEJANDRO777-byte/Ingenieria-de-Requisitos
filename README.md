@@ -1,41 +1,43 @@
 ## 1. Definición de Requisito
-Un requisito es una condición, característica o capacidad que el sistema de software debe cumplir obligatoriamente para resolver un problema real del usuario. Es la descripción de lo que el sistema debe hacer y cómo debe comportarse para cumplir con los objetivos del negocio.
+Un requisito es una condición, característica o capacidad que el sistema de software debe cumplir obligatoriamente para resolver un problema real del usuario o del negocio. Funciona como el puente que traduce las necesidades del cliente en instrucciones técnicas claras y medibles para el equipo de desarrollo.
 
 ---
 
 ## 2. Requisitos Funcionales vs. No Funcionales
 
-| Tipo de Requisito | ¿Qué define? | Ejemplo en el Carrito de Compras |
+| Tipo de Requisito | ¿Qué define? | Ejemplo aplicado a nuestro Módulo de Descuentos |
 | :--- | :--- | :--- |
-| **Funcional** | El **QUÉ** hace el sistema (funciones y acciones directas). | El sistema debe permitir al usuario agregar productos al carrito y calcular el total dinámicamente con JavaScript. |
-| **No Funcional** | El **CÓMO** lo hace (propiedades de calidad y restricciones). | La interfaz debe ser completamente responsiva (adaptable a celulares y PC) usando CSS y HTML semántico. |
+| **Funcional** | El **QUÉ** hace el sistema (acciones directas, cálculos, funciones y servicios ante las interacciones del usuario). | El sistema debe capturar el monto bruto en el HTML, calcular automáticamente una reducción del 10% por fidelidad y restar un cupón de $5.00 si se selecciona la pasarela "WM" (Cartera Móvil). |
+| **No Funcional** | El **CÓMO** lo hace (propiedades de calidad del sistema como rendimiento, seguridad, usabilidad o restricciones técnicas). | Las operaciones lógicas de descuento programadas en `PASARELAS DE PAGO.JS` deben procesarse de forma inmediata en el navegador al hacer clic en el botón. |
 
 ---
 
 ## 3. Estructura de un Caso de Uso
-* **Nombre del Caso de Uso:** Agregar Producto al Carrito.
+* **Nombre del Caso de Uso:** Calcular Descuento por Fidelidad y Procesar Pasarela de Pago.
 * **Actor Principal:** Cliente / Usuario Web.
-* **Precondición:** El usuario debe estar visualizando la lista de productos disponibles en el sitio web.
+* **Precondición:** El usuario debe ingresar un monto total bruto válido (mayor a 0) en el campo de texto del archivo `COMERCIO ELECTRONICO.HTML`.
 * **Flujo Principal (Paso a Paso):**
-  1. El usuario navega por la tienda y selecciona un producto.
-  2. El usuario hace clic en el botón "Agregar al carrito".
-  3. El script de JavaScript captura el evento del clic y procesa el ID y precio del producto.
-  4. El sistema actualiza el estado del carrito internamente y suma el precio al total.
-  5. El sistema actualiza la vista HTML mostrando el nuevo producto en la lista del carrito.
-* **Postcondición:** El carrito muestra el producto seleccionado y el total actualizado de la compra.
+  1. El usuario digita el monto original de su compra.
+  2. El usuario selecciona la pasarela de pago deseada en el menú desplegable (ej. Cartera Móvil o Tarjeta de Crédito).
+  3. El usuario hace clic en el botón "Calcular Totales".
+  4. La función `procesarPago()` en JavaScript se activa y descuenta el 10% fijo por fidelidad sobre el monto bruto.
+  5. El script evalúa la pasarela elegida: si es "wm" resta un cupón de $5.00; si es "cc" suma una comisión del 2%.
+  6. El sistema calcula matemáticamente el Valor Neto a Facturar.
+  7. JavaScript inyecta los resultados actualizados directamente en las etiquetas correspondientes del documento HTML.
+* **Postcondición:** La interfaz gráfica muestra con total transparencia el desglose completo del cobro y el precio neto final.
 
 ---
 
 ## 4. Historia de Usuario
-* **Título:** Selección y Acumulación de Productos.
-* **Como** cliente de la tienda en línea,
-* **Quiero** hacer clic en un botón para agregar un producto a mi carrito de compras,
-* **Para** poder acumular los artículos que deseo comprar y ver el total antes de pagar.
+* **Título:** Aplicación Automatizada de Descuentos por Fidelidad y Métodos de Pago.
+* **Como** cliente frecuente del comercio electrónico,
+* **Quiero** que la plataforma calcule automáticamente mi reducción por fidelidad del 10% y los beneficios o recargos de mi pasarela de pago,
+* **Para** visualizar de manera clara e inmediata mi ahorro real y el valor neto exacto que voy a pagar antes de procesar mi transacción.
 
 ---
 
 ## 5. Criterios de Aceptación (Formato BDD)
-* **Escenario:** Agregar un producto con éxito.
-  * **Dado que** el cliente está en la sección de productos y el carrito está vacío ($0.00),
-  * **Cuando** hace clic en el botón "Agregar al carrito" de un artículo que cuesta $15.00,
-  * **Entonces** el sistema debe incluir el artículo en la lista y el total reflejado en el HTML debe cambiar a $15.00.
+* **Escenario:** Cálculo de cobro exitoso aplicando descuento por fidelidad y pago con Cartera Móvil (WM).
+  * **Dado que** el cliente digita un monto base de $100.00 en la pantalla de cobro,
+  * **Cuando** selecciona la opción "Cartera Móvil (WM)" y presiona el botón "Calcular Totales",
+  * **Entonces** el sistema debe restar $10.00 de fidelidad (10%), restar $5.00 del cupón beneficio, aplicar $0.00 de comisión y mostrar dinámicamente en el HTML que el Valor Neto a Facturar es de $85.00.
